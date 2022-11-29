@@ -1,0 +1,42 @@
+<!DOCTYPE HTML><html>
+<head>
+  <title>ESP Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+<title>ESP Web Server</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+</head>
+<body>
+  <div class="topnav">
+    <h1>ESP WebSocket Server</h1>
+  </div>
+  <div class="content">
+    <div class="card">
+      <h2>Output - GPIO 2</h2>
+      <p class="state">state: <span id="state">%STATE%</span></p>
+      <p><button id="button" class="button">Toggle</button></p>
+    </div>
+
+    <!-- <form>
+      <input type="text" id = chessMoveTxt>
+      <input type="submit" value="Submit" id = 'submitMove'>
+    </form>	 -->
+
+    <p>
+      <input type="text" id="chessMoveTxt"><br><br>
+      <button id="submitMove">Submit Move</button>
+    </p>
+
+
+
+
+    <div id = "username">%USERNAME%</div>
+
+    <!-- <iframe src="https://lichess.org/tv/frame?theme=brown&bg=dark" style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0"></iframe> -->
+    <iframe src="https://lichess.org/training/frame?theme=brown&bg=dark" style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0"></iframe>
+  </div>
+<script src="main.js"></script>
+</body>
+</html>
