@@ -1,20 +1,20 @@
 #include "LichessAPI.h"
 String LichessAPI::lichessToken;
-String LichessAPI::currentGame;
+String LichessAPI::currentGameId;
 
 void LichessAPI::setLichessToken(String token){ // sets lichessAPI token
     LichessAPI::lichessToken = token;
 }
 
-String LichessAPI::getTopTen(){
-    return LichessAPI::httpGet("https://lichess.org/api/player");
+String LichessAPI::getAllTop10(){
+    return httpGet("https://lichess.org/api/player");
 }
 
-String LichessAPI::getOngoingGames(){
+String LichessAPI::getMyOngoingGames(){
     return httpGet("https://lichess.org/api/account/playing");
 }
 
-String LichessAPI::getDailyPuzzle(){
+String LichessAPI::getTheDailyPuzzle(){
     return httpGet("https://lichess.org/api/puzzle/daily");
 }
 
@@ -31,27 +31,40 @@ String LichessAPI::makeABoardMove(String gameId, String move){
 }
 
 String LichessAPI::makeABotMove(String gameId, String move){
-    // return httpResponse("https://lichess.org/api/board/game/" + gameId + "/move/" + from + to);
     return httpPost("https://lichess.org/api/bot/game/" + gameId + "/move/" + move);
 }
 
-void LichessAPI::setCurrentGame(String gameId){
-    LichessAPI::currentGame = gameId;
+void LichessAPI::setCurrentGameId(String gameId){
+    LichessAPI::currentGameId = gameId;
 }
 
-String LichessAPI::getCurrentGame(){
-    return LichessAPI::currentGame;
+String LichessAPI::getCurrentGameId(){
+    return LichessAPI::currentGameId;
 }
+
+String LichessAPI::getCurrentGameFEN(){
+    String jsonRecieved = httpGet("https://lichess.org/api/account/playing"); // get json of all games played
+    int indexOf = jsonRecieved.indexOf(LichessAPI::getCurrentGameId());
+    String fenString = "\"fen\":\"";
+    int fenPosition = jsonRecieved.indexOf(fenString, indexOf) + fenString.length();
+    int endQuotePosition = jsonRecieved.indexOf("\"", fenPosition);
+
+    return jsonRecieved.substring(fenPosition,endQuotePosition);
+}
+
 
 String LichessAPI::abortGame(String gameId){
-    return httpPost("https://lichess.org/api/bot/game/" + gameId + "/abort", "");
+    return httpPost("https://lichess.org/api/bot/game/" + gameId + "/abort");
 }
 
 String LichessAPI::resignGame(String gameId){
-    return httpPost("https://lichess.org/api/bot/game/" + gameId + "/resign", "");
+    return httpPost("https://lichess.org/api/bot/game/" + gameId + "/resign");
 }
 
 String LichessAPI::httpGet(String url){
+    Serial.print("Url being used: ");
+    Serial.println(url);
+
     if(WiFi.status()== WL_CONNECTED){ // if wifi is connected do the stuff
         HTTPClient http;
 
@@ -66,7 +79,9 @@ String LichessAPI::httpGet(String url){
             Serial.print("HTTP Response code: ");
             Serial.println(httpResponseCode);
             String payload = http.getString();
+            Serial.print("HTTP payload: ");
             Serial.println(payload);
+            Serial.println();
             return payload;
         } else{ // error
             String errorCode = "Error code: " + httpResponseCode;
@@ -102,6 +117,7 @@ String LichessAPI::httpPost(String url, String jsonBody){
             Serial.print("HTTP Response code: ");
             Serial.println(httpResponseCode);
             String payload = http.getString();
+            Serial.print("HTTP payload: ");
             Serial.println(payload);
             return payload;
         } else{ // error

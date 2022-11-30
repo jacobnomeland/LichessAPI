@@ -66,7 +66,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) { // handle re
     }
     if(doc.containsKey("chessMoveTxt")){
       const char* test = doc["chessMoveTxt"];
-      LichessAPI::makeABotMove(LichessAPI::getCurrentGame(), test);
+      LichessAPI::makeABotMove(LichessAPI::getCurrentGameId(), test);
     }
   }
 }
@@ -167,7 +167,7 @@ void setup() {
   
   LichessAPI::setLichessToken("lip_kv7qP8TCWBiEaLof4KOf"); // setting lichessAPI harryBotter123
   // LichessAPI::setLichessToken("lip_pF1PZ66cS6xkQuqThTg4"); // setting lichessAPI kabooterz
-  LichessAPI::setCurrentGame("miF0047S"); // lichess bot
+  LichessAPI::setCurrentGameId("miF0047S"); // lichess bot
 }
 
 
@@ -177,9 +177,11 @@ void loop() {
   if ((millis() - lastTime) > timerDelay) { // intervals 
     DynamicJsonDocument doc(3000);
     doc["setUsername"] = LichessAPI::getMyId();
+    doc["setFEN"] = LichessAPI::getCurrentGameFEN();
     String output;
     serializeJson(doc, output);
     ws.textAll(output);
     lastTime = millis();
+
   }
 }

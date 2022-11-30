@@ -10,21 +10,23 @@
             static String httpGet(String url);
             static String httpPost(String url);
             static String httpPost(String url, String jsonBody);
+            static String httpResponse(int httpResponseCode, HTTPClient aaaa);
             static String jsonParse(String jsonStructure, String name);
-            static String currentGame;
+            static String currentGameId;
         public:
-            static String getTopTen(); // get top ten players
-            static String getOngoingGames();
+            static String getAllTop10(); // get top ten players
+            static String getMyOngoingGames();
             static String getMyProfile();
             static String getMyId();
             static void setLichessToken(String token);
             static String makeABoardMove(String gameId, String move);
             static String makeABotMove(String gameId, String move);
-            static String getDailyPuzzle();
-            static String getCurrentGame();
-            static void setCurrentGame(String gameId);
+            static String getTheDailyPuzzle();
+            static String getCurrentGameId();
+            static void setCurrentGameId(String gameId);
             static String abortGame(String gameId);
             static String resignGame(String gameId);
+            static String getCurrentGameFEN();
     };
 
 #endif
