@@ -12,7 +12,7 @@
 // https://www.youtube.com/watch?v=tDdL5urWvH4
 // https://www.youtube.com/watch?v=_bar1Nhfj-Y&t=212s
 // https://circuits4you.com/2018/11/20/web-server-on-esp32-how-to-update-and-display-sensor-values/
-//https://microcontrollerslab.com/esp32-asynchronous-web-server-espasyncwebserver-library/
+// https://microcontrollerslab.com/esp32-asynchronous-web-server-espasyncwebserver-library/
 // https://github.com/me-no-dev/ESPAsyncWebServer
 
 //Wifi credentials
@@ -165,9 +165,9 @@ void setup() {
   // Start server
   server.begin();
   
-  LichessAPI::setLichessToken("lip_kv7qP8TCWBiEaLof4KOf"); // setting lichessAPI harryBotter123
-  // LichessAPI::setLichessToken("lip_pF1PZ66cS6xkQuqThTg4"); // setting lichessAPI kabooterz
-  LichessAPI::setCurrentGameId("miF0047S"); // lichess bot
+  // LichessAPI::setLichessToken("lip_kv7qP8TCWBiEaLof4KOf"); // setting lichessAPI harryBotter123
+  LichessAPI::setLichessToken("lip_pF1PZ66cS6xkQuqThTg4"); // setting lichessAPI kabooterz
+  LichessAPI::setCurrentGameId("1q2XieQ8BpK7"); // lichess bot
 }
 
 
